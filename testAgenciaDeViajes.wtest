@@ -1,0 +1,69 @@
+import agenciaDeViajes.*
+
+describe "Tests del Sistema de Packs de Viajes" {
+
+  
+  const coordinadorBase = new Coordinador(
+    viajesRealizados = 10,
+    estaMotivado = true,
+    aniosDeExperiencia = 2,
+    rol = acompaniante
+  )
+
+  const traslado = new Beneficio(tipo = "Traslado", costo = 500, vigente = true)
+  const seguro = new Beneficio(tipo = "Seguro", costo = 300, vigente = true)
+  const vipNoVigente = new Beneficio(tipo = "VIP", costo = 1000, vigente = false)
+
+
+  
+  test "Un pack nacional sin beneficios vigentes devuelve el mismo precio base" {
+    const pack = new PackNacional(
+      duracionEnDias = 5,
+      precioBase = 10000,
+      beneficios = [vipNoVigente],
+      coordinador = coordinadorBase,
+      provinciaDestino = "Mendoza",
+      actividades = ["Cata de vinos"]
+    )
+    assert.equals(10000, pack.valorFinal())
+  }
+
+  
+  test "Un pack nacional con 2 beneficios vigentes suma correctamente sus costos al precio base" {
+    const pack = new PackNacional(
+      duracionEnDias = 7,
+      precioBase = 10000,
+      beneficios = [traslado, seguro, vipNoVigente],
+      coordinador = coordinadorBase,
+      provinciaDestino = "Córdoba",
+      actividades = ["Trekking"]
+    )
+    assert.equals(10800, pack.valorFinal())
+  }
+
+ 
+  test "Un pack internacional sin beneficios vigentes calcula el total con 20% de recargo" {
+    const pack = new PackInternacional(
+      duracionEnDias = 15,
+      precioBase = 20000,
+      beneficios = [],
+      coordinador = coordinadorBase,
+      paisDestino = "Italia",
+      escalas = 1,
+      esLugarDeInteres = true
+    )
+    assert.equals(24000, pack.valorFinal())
+  }
+
+  test "Un guía motivado con más de 20 viajes es altamente calificado" {
+    const guiaCalificado = new Coordinador(
+      viajesRealizados = 21,
+      estaMotivado = true,
+      aniosDeExperiencia = 1,
+      rol = guia
+    )
+    assert.that(guiaCalificado.esAltamenteCalificado())
+  }
+}
+
+
