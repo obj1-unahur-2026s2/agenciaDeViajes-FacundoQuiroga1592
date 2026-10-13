@@ -5,7 +5,7 @@ La agencia de turismo **“Viajes sin Fronteras”** busca modernizar su sistema
 Por el momento, ofrecen dos tipos de packs: **nacionales** e **internacionales**. No se debe permitir crear un pack si no es de alguno de estos dos tipos.
 De cada pack nos interesa saber la duración en días, precio base, todos sus beneficios especiales y su coordinador a cargo.
 
-#### Packs Nacionales
+#### Packs Nacionales |
 
 Además, en los packs nacionales nos interesa saber la provincia destino, una lista de actividades incluídas. Cada actividad se representará con su nombre en formato de texto.
 
